@@ -1,0 +1,98 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<hudson>
+  <disabledAdministrativeMonitors/>
+  <version>1.0</version>
+  <numExecutors>2</numExecutors>
+  <mode>NORMAL</mode>
+  <useSecurity>true</useSecurity>
+  <authorizationStrategy class="hudson.security.GlobalMatrixAuthorizationStrategy">
+    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Create:admins</permission>
+    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Delete:admins</permission>
+    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.ManageDomains:admins</permission>
+    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Update:admins</permission>
+    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.View:admins</permission>
+    <permission>hudson.model.Computer.Build:admins</permission>
+    <permission>hudson.model.Computer.Configure:admins</permission>
+    <permission>hudson.model.Computer.Connect:admins</permission>
+    <permission>hudson.model.Computer.Create:admins</permission>
+    <permission>hudson.model.Computer.Delete:admins</permission>
+    <permission>hudson.model.Computer.Disconnect:admins</permission>
+    <permission>hudson.model.Hudson.Administer:admins</permission>
+    <permission>hudson.model.Hudson.Administer:users</permission>
+    <permission>hudson.model.Hudson.ConfigureUpdateCenter:admins</permission>
+    <permission>hudson.model.Hudson.ConfigureUpdateCenter:users</permission>
+    <permission>hudson.model.Hudson.Read:admins</permission>
+    <permission>hudson.model.Hudson.RunScripts:admins</permission>
+    <permission>hudson.model.Hudson.UploadPlugins:admins</permission>
+    <permission>hudson.model.Item.Build:admins</permission>
+    <permission>hudson.model.Item.Build:anonymous</permission>
+    <permission>hudson.model.Item.Cancel:admins</permission>
+    <permission>hudson.model.Item.Cancel:anonymous</permission>
+    <permission>hudson.model.Item.Configure:admins</permission>
+    <permission>hudson.model.Item.Configure:anonymous</permission>
+    <permission>hudson.model.Item.Create:admins</permission>
+    <permission>hudson.model.Item.Create:anonymous</permission>
+    <permission>hudson.model.Item.Delete:admins</permission>
+    <permission>hudson.model.Item.Delete:anonymous</permission>
+    <permission>hudson.model.Item.Discover:admins</permission>
+    <permission>hudson.model.Item.Discover:anonymous</permission>
+    <permission>hudson.model.Item.Move:admins</permission>
+    <permission>hudson.model.Item.Move:anonymous</permission>
+    <permission>hudson.model.Item.Read:admins</permission>
+    <permission>hudson.model.Item.Read:anonymous</permission>
+    <permission>hudson.model.Item.Workspace:admins</permission>
+    <permission>hudson.model.Run.Delete:admins</permission>
+    <permission>hudson.model.Run.Delete:robots</permission>
+    <permission>hudson.model.Run.Replay:admins</permission>
+    <permission>hudson.model.Run.Replay:robots</permission>
+    <permission>hudson.model.Run.Update:admins</permission>
+    <permission>hudson.model.Run.Update:robots</permission>
+    <permission>hudson.model.View.Configure:admins</permission>
+    <permission>hudson.model.View.Create:admins</permission>
+    <permission>hudson.model.View.Delete:admins</permission>
+    <permission>hudson.model.View.Read:admins</permission>
+    <permission>hudson.scm.SCM.Tag:admins</permission>
+  </authorizationStrategy>
+  <securityRealm class="hudson.security.LDAPSecurityRealm" plugin="ldap@1.12">
+    <server>ldap</server>
+    <rootDN>dc=ea,dc=cnbc,dc=com</rootDN>
+    <inhibitInferRootDN>false</inhibitInferRootDN>
+    <userSearchBase>ou=people</userSearchBase>
+    <userSearch>uid={0}</userSearch>
+    <groupSearchBase>ou=groups</groupSearchBase>
+    <groupMembershipStrategy class="jenkins.security.plugins.ldap.FromGroupSearchLDAPGroupMembershipStrategy">
+      <filter></filter>
+    </groupMembershipStrategy>
+    <managerDN>cn=admin,dc=ea,dc=cnbc,dc=com</managerDN>
+    <managerPasswordSecret>oekQT3enxr29BtlGfVV6bSdEICtjrICkneRn8O9Co3w=</managerPasswordSecret>
+    <disableMailAddressResolver>false</disableMailAddressResolver>
+    <displayNameAttributeName>displayname</displayNameAttributeName>
+    <mailAddressAttributeName>mail</mailAddressAttributeName>
+    <userIdStrategy class="jenkins.model.IdStrategy$CaseInsensitive"/>
+    <groupIdStrategy class="jenkins.model.IdStrategy$CaseInsensitive"/>
+  </securityRealm>
+  <disableRememberMe>false</disableRememberMe>
+  <projectNamingStrategy class="jenkins.model.ProjectNamingStrategy$DefaultProjectNamingStrategy"/>
+  <workspaceDir>${JENKINS_HOME}/workspace/${ITEM_FULLNAME}</workspaceDir>
+  <buildsDir>${ITEM_ROOTDIR}/builds</buildsDir>
+  <markupFormatter class="hudson.markup.EscapedMarkupFormatter"/>
+  <jdks/>
+  <viewsTabBar class="hudson.views.DefaultViewsTabBar"/>
+  <myViewsTabBar class="hudson.views.DefaultMyViewsTabBar"/>
+  <clouds/>
+  <scmCheckoutRetryCount>0</scmCheckoutRetryCount>
+  <views>
+    <hudson.model.AllView>
+      <owner class="hudson" reference="../../.."/>
+      <name>All</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <properties class="hudson.model.View$PropertyList"/>
+    </hudson.model.AllView>
+  </views>
+  <primaryView>All</primaryView>
+  <slaveAgentPort>50000</slaveAgentPort>
+  <label></label>
+  <nodeProperties/>
+  <globalNodeProperties/>
+</hudson>
