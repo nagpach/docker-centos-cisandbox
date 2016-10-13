@@ -25,6 +25,11 @@ export -f copy_reference_file
 echo "--- Copying files at $(date)" >> $COPY_REFERENCE_FILE_LOG
 find /usr/share/jenkins/ref/ -type f -exec bash -c "copy_reference_file '{}'" \;
 
+ldap_admin_password=admin
+password64=$(echo -n "$ldap_admin_password" | base64)
+sed -i "s|<\(managerPassword\)>[^<]*</\1>|<\1>${password64}</\1>|" /var/lib/jenkins/config.xml
+
+
 # if `docker run` first argument start with `--` the user is passing jenkins launcher arguments
 if [[ $# -lt 1 ]] || [[ "$1" == "--"* ]]; then
    exec java $JAVA_OPTS -Djenkins.install.runSetupWizard=false -jar /usr/share/jenkins/jenkins.war $JENKINS_OPTS "$@"

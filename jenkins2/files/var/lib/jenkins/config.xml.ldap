@@ -64,7 +64,7 @@
       <filter></filter>
     </groupMembershipStrategy>
     <managerDN>cn=admin,dc=ea,dc=cnbc,dc=com</managerDN>
-    <managerPasswordSecret>oekQT3enxr29BtlGfVV6bSdEICtjrICkneRn8O9Co3w=</managerPasswordSecret>
+    <managerPassword>base64_encoded_password</managerPassword>
     <disableMailAddressResolver>false</disableMailAddressResolver>
     <displayNameAttributeName>displayname</displayNameAttributeName>
     <mailAddressAttributeName>mail</mailAddressAttributeName>
