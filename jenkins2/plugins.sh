@@ -23,6 +23,11 @@ while read spec || [ -n "$spec" ]; do
     if [ -z "$JENKINS_UC_DOWNLOAD" ]; then
       JENKINS_UC_DOWNLOAD=$JENKINS_UC/download
     fi
+#    if curl --output /dev/null --silent --head --fail "${JENKINS_UC_DOWNLOAD}/plugins/${plugin[0]}/${plugin[1]}/${plugin[0]}.hpi"
+#    then
     curl -sSL -f ${JENKINS_UC_DOWNLOAD}/plugins/${plugin[0]}/${plugin[1]}/${plugin[0]}.hpi -o $REF/${plugin[0]}.jpi
+#    else
+#       echo "${JENKINS_UC_DOWNLOAD}/plugins/${plugin[0]}/${plugin[1]}/${plugin[0]}.hpi Not Exist"
+#    fi
     unzip -qqt $REF/${plugin[0]}.jpi
 done  < $1

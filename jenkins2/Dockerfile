@@ -1,5 +1,5 @@
 FROM centos:7
-MAINTAINER Maxfield Stewart
+MAINTAINER Nag Pachava 
 
 # Yum workaround to stalled mirror
 RUN sed -i -e 's/enabled=1/enabled=0/g' /etc/yum/pluginconf.d/fastestmirror.conf
@@ -28,8 +28,9 @@ RUN curl -fsSL https://github.com/krallin/tini/releases/download/v${TINI_VERSION
 # SET Jenkins Environment Variables
 ENV JENKINS_HOME /var/lib/jenkins
 ENV JENKINS_SLAVE_AGENT_PORT 50000
-ENV JENKINS_VERSION 2.22
-ENV JENKINS_SHA 5b89b6967e7af8119c52c7e86223b47665417a22 
+ENV JENKINS_VERSION 2.25
+#ENV JENKINS_SHA 5b89b6967e7af8119c52c7e86223b47665417a22 
+ENV JENKINS_SHA 1c4a750b7d7102c5fc9b78550fd3dcc93d7374da
 ENV JENKINS_UC https://updates.jenkins-ci.org
 ENV COPY_REFERENCE_FILE_LOG $JENKINS_HOME/copy_reference_file.log
 

@@ -1,7 +1,4 @@
-# ci-base
-#
 # Basic Docker image for CI services
-#
 
 FROM centos:6
 
