@@ -5,7 +5,91 @@
   <numExecutors>2</numExecutors>
   <mode>NORMAL</mode>
   <useSecurity>true</useSecurity>
-  <authorizationStrategy class="hudson.security.AuthorizationStrategy$Unsecured"/>
+  <authorizationStrategy class="hudson.security.ProjectMatrixAuthorizationStrategy">
+    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Create:admins</permission>
+    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Create:dev</permission>
+    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Create:qa</permission>
+    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Delete:admins</permission>
+    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Delete:dev</permission>
+    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Delete:qa</permission>
+    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.ManageDomains:admins</permission>
+    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.ManageDomains:dev</permission>
+    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.ManageDomains:qa</permission>
+    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Update:admins</permission>
+    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Update:dev</permission>
+    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Update:qa</permission>
+    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.View:admins</permission>
+    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.View:dev</permission>
+    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.View:qa</permission>
+    <permission>com.sonyericsson.hudson.plugins.gerrit.trigger.PluginImpl.ManualTrigger:admins</permission>
+    <permission>com.sonyericsson.hudson.plugins.gerrit.trigger.PluginImpl.Retrigger:admins</permission>
+    <permission>hudson.model.Computer.Build:admins</permission>
+    <permission>hudson.model.Computer.Configure:admins</permission>
+    <permission>hudson.model.Computer.Connect:admins</permission>
+    <permission>hudson.model.Computer.Create:admins</permission>
+    <permission>hudson.model.Computer.Delete:admins</permission>
+    <permission>hudson.model.Computer.Disconnect:admins</permission>
+    <permission>hudson.model.Hudson.Administer:admins</permission>
+    <permission>hudson.model.Hudson.ConfigureUpdateCenter:admins</permission>
+    <permission>hudson.model.Hudson.Read:admins</permission>
+    <permission>hudson.model.Hudson.Read:anonymous</permission>
+    <permission>hudson.model.Hudson.RunScripts:admins</permission>
+    <permission>hudson.model.Hudson.RunScripts:anonymous</permission>
+    <permission>hudson.model.Hudson.UploadPlugins:admins</permission>
+    <permission>hudson.model.Hudson.UploadPlugins:anonymous</permission>
+    <permission>hudson.model.Item.Build:admins</permission>
+    <permission>hudson.model.Item.Build:dev</permission>
+    <permission>hudson.model.Item.Build:qa</permission>
+    <permission>hudson.model.Item.Cancel:admins</permission>
+    <permission>hudson.model.Item.Cancel:dev</permission>
+    <permission>hudson.model.Item.Cancel:qa</permission>
+    <permission>hudson.model.Item.Configure:admins</permission>
+    <permission>hudson.model.Item.Configure:dev</permission>
+    <permission>hudson.model.Item.Configure:qa</permission>
+    <permission>hudson.model.Item.Create:admins</permission>
+    <permission>hudson.model.Item.Create:dev</permission>
+    <permission>hudson.model.Item.Create:qa</permission>
+    <permission>hudson.model.Item.Delete:admins</permission>
+    <permission>hudson.model.Item.Delete:dev</permission>
+    <permission>hudson.model.Item.Delete:qa</permission>
+    <permission>hudson.model.Item.Discover:admins</permission>
+    <permission>hudson.model.Item.Discover:dev</permission>
+    <permission>hudson.model.Item.Discover:qa</permission>
+    <permission>hudson.model.Item.Move:admins</permission>
+    <permission>hudson.model.Item.Move:dev</permission>
+    <permission>hudson.model.Item.Move:qa</permission>
+    <permission>hudson.model.Item.Read:admins</permission>
+    <permission>hudson.model.Item.Read:dev</permission>
+    <permission>hudson.model.Item.Read:qa</permission>
+    <permission>hudson.model.Item.ViewStatus:admins</permission>
+    <permission>hudson.model.Item.ViewStatus:dev</permission>
+    <permission>hudson.model.Item.ViewStatus:qa</permission>
+    <permission>hudson.model.Item.Workspace:admins</permission>
+    <permission>hudson.model.Item.Workspace:dev</permission>
+    <permission>hudson.model.Item.Workspace:qa</permission>
+    <permission>hudson.model.Run.Delete:admins</permission>
+    <permission>hudson.model.Run.Replay:admins</permission>
+    <permission>hudson.model.Run.Update:admins</permission>
+    <permission>hudson.model.Run.Update:dev</permission>
+    <permission>hudson.model.Run.Update:qa</permission>
+    <permission>hudson.model.View.Configure:admins</permission>
+    <permission>hudson.model.View.Configure:dev</permission>
+    <permission>hudson.model.View.Configure:qa</permission>
+    <permission>hudson.model.View.Create:admins</permission>
+    <permission>hudson.model.View.Create:dev</permission>
+    <permission>hudson.model.View.Create:qa</permission>
+    <permission>hudson.model.View.Delete:admins</permission>
+    <permission>hudson.model.View.Delete:dev</permission>
+    <permission>hudson.model.View.Delete:qa</permission>
+    <permission>hudson.model.View.Read:admins</permission>
+    <permission>hudson.model.View.Read:dev</permission>
+    <permission>hudson.model.View.Read:qa</permission>
+    <permission>hudson.scm.SCM.Tag:admins</permission>
+    <permission>org.jenkinsci.plugins.docker.traceability.DockerTraceabilityPlugin.Delete:admins</permission>
+    <permission>org.jenkinsci.plugins.docker.traceability.DockerTraceabilityPlugin.Read:admins</permission>
+    <permission>org.jenkinsci.plugins.docker.traceability.DockerTraceabilityPlugin.Submit:admins</permission>
+  </authorizationStrategy>
+  <!-- authorizationStrategy class="hudson.security.AuthorizationStrategy$Unsecured"/ -->
   <securityRealm class="hudson.security.LDAPSecurityRealm" plugin="ldap@1.13">
     <server>ldap</server>
     <rootDN>dc=ea,dc=cnbc,dc=com</rootDN>

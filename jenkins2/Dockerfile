@@ -9,7 +9,7 @@ RUN rpm --rebuilddb -v -v
 RUN yum clean all
 
 RUN yum -v install -y \
-    wget \
+    sudo wget \
     zip \
     openssh-client \
     unzip \
@@ -73,16 +73,25 @@ COPY plugins.sh /usr/local/bin/plugins.sh
 RUN chmod +x /usr/local/bin/plugins.sh
 RUN chmod +x /usr/local/bin/jenkins.sh
 
-COPY files/var/lib/jenkins/* /var/lib/jenkins/
-
+#COPY files/var/lib/jenkins /var/lib/jenkins
+RUN chmod 777 /var/lib/jenkins
 RUN chown -R jenkins:jenkins /var/lib/jenkins
+
+# Switch to the jenkins user
+USER jenkins
 
 # Install default plugins
 COPY plugins.txt /tmp/plugins.txt
 RUN /usr/local/bin/plugins.sh /tmp/plugins.txt
 
-# Switch to the jenkins user
-USER jenkins
+ADD files/var/lib/jenkins /usr/share/jenkins/ref
+
+#COPY files/var/lib/jenkins/config.xml /usr/share/jenkins/ref/config.xml
+#RUN mkdir -p /var/lib/jenkins/jobs/hello
+#RUN mkdir -p /var/lib/jenkins/jobs/hello1
+#COPY files/var/lib/jenkins/jobs/hello/config.xml /var/lib/jenkins/jobs/hello/config.xml
+#COPY files/var/lib/jenkins/jobs/hello1/config.xml /var/lib/jenkins/jobs/hello1/config.xml
+
 
 # Tini as the entry point to manage zombie processes
 ENTRYPOINT ["/bin/tini", "--", "/usr/local/bin/jenkins.sh"]
