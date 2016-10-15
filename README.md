@@ -14,3 +14,6 @@ docker stop ldap & docker rm ldap
 docker stop jenkins & docker rm jenkins
 docker exec -it jenkins /bin/bash
 
+
+docker run -itd --name ldapadmin --link ldap:ldap -p 98:80 cnbc/ldapadmin
+

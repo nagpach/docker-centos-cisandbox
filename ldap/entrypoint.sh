@@ -113,6 +113,23 @@ sn: Jenkins CI
 uid: jenkins-bot
 userpassword: $(slappasswd -s "$jenkins_bot_password")
 
+
+dn: uid=nag.pachava,ou=people,${ldap_domain_dn}
+objectclass: inetOrgPerson
+cn: Nag Pachava
+sn: Nag Pachava
+uid: nag.pachava 
+userpassword: $(slappasswd -s "$jenkins_bot_password")
+
+
+dn: uid=srini.mor,ou=people,${ldap_domain_dn}
+objectclass: inetOrgPerson
+cn: Srini Morraju
+sn: Srini Morraju 
+uid: srini.mor
+userpassword: $(slappasswd -s "$jenkins_bot_password")
+
+
 # System groups
 
 dn: cn=admins,ou=groups,${ldap_domain_dn}
@@ -123,6 +140,16 @@ member: uid=admin,ou=people,${ldap_domain_dn}
 dn: cn=users,ou=groups,${ldap_domain_dn}
 objectclass: groupOfNames
 cn: users
+member: uid=admin,ou=people,${ldap_domain_dn}
+
+dn: cn=dev,ou=groups,${ldap_domain_dn}
+objectclass: groupOfNames
+cn: dev
+member: uid=admin,ou=people,${ldap_domain_dn}
+
+dn: cn=qa,ou=groups,${ldap_domain_dn}
+objectclass: groupOfNames
+cn: qa
 member: uid=admin,ou=people,${ldap_domain_dn}
 
 dn: cn=robots,ou=groups,${ldap_domain_dn}
