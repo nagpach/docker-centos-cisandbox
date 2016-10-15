@@ -114,21 +114,53 @@ uid: jenkins-bot
 userpassword: $(slappasswd -s "$jenkins_bot_password")
 
 
-dn: uid=nag.pachava,ou=people,${ldap_domain_dn}
+dn: uid=dev.user1,ou=people,${ldap_domain_dn}
 objectclass: inetOrgPerson
-cn: Nag Pachava
-sn: Nag Pachava
-uid: nag.pachava 
+cn: Dev User1
+sn: Dev User1 
+uid: dev.user1  
 userpassword: $(slappasswd -s "$jenkins_bot_password")
 
 
-dn: uid=srini.mor,ou=people,${ldap_domain_dn}
+dn: uid=dev.user2,ou=people,${ldap_domain_dn}
 objectclass: inetOrgPerson
-cn: Srini Morraju
-sn: Srini Morraju 
-uid: srini.mor
+cn: Dev User2
+sn: Dev User2 
+uid: dev.user2  
 userpassword: $(slappasswd -s "$jenkins_bot_password")
 
+
+dn: uid=dev.user3,ou=people,${ldap_domain_dn}
+objectclass: inetOrgPerson
+cn: Dev User3
+sn: Dev User3 
+uid: dev.user3  
+userpassword: $(slappasswd -s "$jenkins_bot_password")
+
+
+
+dn: uid=qa.user1,ou=people,${ldap_domain_dn}
+objectclass: inetOrgPerson
+cn: QA User1
+sn: QA User1 
+uid: qa.user1  
+userpassword: $(slappasswd -s "$jenkins_bot_password")
+
+
+dn: uid=qa.user2,ou=people,${ldap_domain_dn}
+objectclass: inetOrgPerson
+cn: QA User2
+sn: QA User2 
+uid: qa.user2  
+userpassword: $(slappasswd -s "$jenkins_bot_password")
+
+
+dn: uid=qa.user3,ou=people,${ldap_domain_dn}
+objectclass: inetOrgPerson
+cn: QA User3
+sn: QA User3 
+uid: qa.user3  
+userpassword: $(slappasswd -s "$jenkins_bot_password")
 
 # System groups
 
@@ -146,11 +178,16 @@ dn: cn=dev,ou=groups,${ldap_domain_dn}
 objectclass: groupOfNames
 cn: dev
 member: uid=admin,ou=people,${ldap_domain_dn}
+member: uid=dev.user1,ou=people,${ldap_domain_dn}
+member: uid=dev.user2,ou=people,${ldap_domain_dn}
+member: uid=dev.user3,ou=people,${ldap_domain_dn}
 
 dn: cn=qa,ou=groups,${ldap_domain_dn}
 objectclass: groupOfNames
 cn: qa
-member: uid=admin,ou=people,${ldap_domain_dn}
+member: uid=qa.user1,ou=people,${ldap_domain_dn}
+member: uid=qa.user2,ou=people,${ldap_domain_dn}
+member: uid=qa.user3,ou=people,${ldap_domain_dn}
 
 dn: cn=robots,ou=groups,${ldap_domain_dn}
 objectclass: groupOfNames
