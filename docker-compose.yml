@@ -1,0 +1,97 @@
+version: '2'
+
+networks:
+  prodnetwork:
+    driver: bridge
+
+services:
+ ldap:
+  image: cnbc/ldap
+  networks:
+    - prodnetwork
+
+ ldapadmin:
+  image: cnbc/ldapadmin
+  ports:
+    - "98:80"
+  depends_on:
+    - ldap
+  networks:
+    - prodnetwork
+
+ nexus:
+  image: cnbc/nexus
+  ports:
+    - "18081:8081"
+  networks:
+    - prodnetwork
+
+ jenkins:
+  image: cnbc/jenkins2
+  ports:
+    - "18080:8080"
+  networks:
+    - prodnetwork
+  volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
+    - /usr/local/bin/docker:/usr/bin/docker
+  depends_on:
+    - nexus
+    - ldap
+    - sonar
+    - seleniumhub
+  environment:
+    - NEXUS_PORT=8081
+    - SONAR_PORT=9000
+    - SONAR_DB_PORT=5432
+
+ sonar:
+  image: cnbc/sonar
+  ports:
+   - "19000:9000"
+   - "5432:5432"
+  networks:
+    - prodnetwork
+  depends_on:
+    - sonardb
+  environment:
+   - SONARQUBE_JDBC_URL=jdbc:postgresql://sonardb:5432/sonar
+
+ sonardb:
+  networks:
+    - prodnetwork
+  image: postgres
+  environment:
+   - POSTGRES_USER=sonar
+   - POSTGRES_PASSWORD=sonar
+  volumes:
+    - /opt/postgres/data:/var/lib/postgresql/data
+
+ seleniumhub:
+  image: selenium/hub
+  ports:
+    - "4444:4444"
+  networks:
+    - prodnetwork
+
+ nodeff:
+  image: selenium/node-firefox
+  ports:
+    - 5900
+  networks:
+    - prodnetwork
+  environment:
+   - HUB_PORT_4444_TCP_ADDR=seleniumhub
+  depends_on:
+    - seleniumhub
+
+ nodechrome:
+  image: selenium/node-chrome
+  ports:
+    - 5900
+  networks:
+    - prodnetwork
+  environment:
+   - HUB_PORT_4444_TCP_ADDR=seleniumhub
+  depends_on:
+    - seleniumhub

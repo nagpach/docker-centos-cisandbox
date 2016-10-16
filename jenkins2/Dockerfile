@@ -99,6 +99,18 @@ ADD files/var/lib/jenkins /usr/share/jenkins/ref
 #COPY files/var/lib/jenkins/jobs/hello/config.xml /var/lib/jenkins/jobs/hello/config.xml
 #COPY files/var/lib/jenkins/jobs/hello1/config.xml /var/lib/jenkins/jobs/hello1/config.xml
 
+COPY jobs/1-github-seed-job.xml /usr/share/jenkins/ref/jobs/1-github-seed-job/config.xml
+COPY jobs/2-job-dsl-seed-job.xml /usr/share/jenkins/ref/jobs/2-job-dsl-seed-job/config.xml
+COPY jobs/3-conference-app-seed-job.xml /usr/share/jenkins/ref/jobs/3-conference-app-seed-job/config.xml
+
+RUN mkdir -p /usr/share/jenkins/ref/.ssh
+ADD sshkeys/id_rsa /usr/share/jenkins/ref/.ssh
+ADD sshkeys/id_rsa.pub /usr/share/jenkins/ref/.ssh
+
+
+# tell Jenkins that no banner prompt for pipeline plugins is needed
+# see: https://github.com/jenkinsci/docker#preinstalling-plugins
+RUN echo 2.0 > /usr/share/jenkins/ref/jenkins.install.UpgradeWizard.state
 
 # Tini as the entry point to manage zombie processes
 ENTRYPOINT ["/bin/tini", "--", "/usr/local/bin/jenkins.sh"]
