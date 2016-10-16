@@ -8,7 +8,7 @@ RUN rm -f /var/lib/rpm/__*
 RUN rpm --rebuilddb -v -v
 RUN yum clean all
 
-RUN yum -v install -y \
+RUN yum -y --setopt=tsflags=nodocs install \
     sudo wget \
     zip \
     openssh-client \
@@ -48,6 +48,14 @@ VOLUME /var/lib/jenkins
 # or config file with your custom jenkins Docker image.
 RUN mkdir -p /usr/share/jenkins/ref/init.groovy.d
 
+
+
+# installed maven package is still 3.0.5, pretty old
+ENV MAVEN_VERSION 3.3.9
+RUN cd /usr/local; wget -q -O - http://mirrors.ibiblio.org/apache/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz | tar xvfz - && \
+ln -sv /usr/local/apache-maven-$MAVEN_VERSION /usr/local/maven
+
+
 # Install Jenkins
 RUN curl -fL http://repo.jenkins-ci.org/public/org/jenkins-ci/main/jenkins-war/${JENKINS_VERSION}/jenkins-war-${JENKINS_VERSION}.war -o /usr/share/jenkins/jenkins.war \
   && echo "$JENKINS_SHA /usr/share/jenkins/jenkins.war" | sha1sum -c -
@@ -63,8 +71,7 @@ RUN chown -R jenkins:jenkins /var/log/jenkins
 RUN chown -R jenkins:jenkins /var/cache/jenkins
 
 # Expose Ports for web and slave agents
-EXPOSE 8080
-EXPOSE 50000
+EXPOSE 8080 50000
 
 # Copy in local config files
 COPY init.groovy /usr/share/jenkins/ref/init.groovy.d/tcp-slave-agent-port.groovy
