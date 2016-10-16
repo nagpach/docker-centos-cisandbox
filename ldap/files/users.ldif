@@ -1,0 +1,114 @@
+dn: %LDAP_DOMAIN_DN%
+objectClass: top
+objectClass: dcObject
+objectclass: organization
+o: %ORGANIZATION%
+dc: %LDAP_DOMAIN_NAME% 
+
+dn: ou=people,%LDAP_DOMAIN_DN%
+objectclass: organizationalUnit
+ou: people
+
+dn: ou=groups,%LDAP_DOMAIN_DN%
+objectclass: organizationalUnit
+ou: groups
+
+# System accounts
+
+dn: uid=admin,ou=people,%LDAP_DOMAIN_DN%
+objectclass: inetOrgPerson
+cn: Administrator
+sn: Administrator
+displayname: System Administrator
+uid: admin
+userpassword: %ADMIN_PASSWORD%
+
+# TODO: Not sure if Jenkins user has to be an inetOrgPerson in ou=people,
+# or not just simpleSecurityObject elsewhere to distinguish from real people.
+dn: uid=jenkins-bot,ou=people,%LDAP_DOMAIN_DN%
+objectclass: inetOrgPerson
+cn: Jenkins CI
+sn: Jenkins CI
+uid: jenkins-bot
+userpassword: %USER_PASSWORD%
+
+
+dn: uid=dev.user1,ou=people,%LDAP_DOMAIN_DN%
+objectclass: inetOrgPerson
+cn: Dev User1
+sn: Dev User1 
+uid: dev.user1  
+userpassword: %USER_PASSWORD%
+
+
+dn: uid=dev.user2,ou=people,%LDAP_DOMAIN_DN%
+objectclass: inetOrgPerson
+cn: Dev User2
+sn: Dev User2 
+uid: dev.user2  
+userpassword: %USER_PASSWORD% 
+
+
+dn: uid=dev.user3,ou=people,%LDAP_DOMAIN_DN%
+objectclass: inetOrgPerson
+cn: Dev User3
+sn: Dev User3 
+uid: dev.user3  
+userpassword: %USER_PASSWORD%
+
+
+
+dn: uid=qa.user1,ou=people,%LDAP_DOMAIN_DN%
+objectclass: inetOrgPerson
+cn: QA User1
+sn: QA User1 
+uid: qa.user1  
+userpassword: %USER_PASSWORD%
+
+
+dn: uid=qa.user2,ou=people,%LDAP_DOMAIN_DN%
+objectclass: inetOrgPerson
+cn: QA User2
+sn: QA User2 
+uid: qa.user2  
+userpassword: %USER_PASSWORD%
+
+
+dn: uid=qa.user3,ou=people,%LDAP_DOMAIN_DN%
+objectclass: inetOrgPerson
+cn: QA User3
+sn: QA User3 
+uid: qa.user3  
+userpassword: %USER_PASSWORD%
+
+# System groups
+
+dn: cn=admins,ou=groups,%LDAP_DOMAIN_DN%
+objectclass: groupOfNames
+cn: admins
+member: uid=admin,ou=people,%LDAP_DOMAIN_DN%
+
+dn: cn=users,ou=groups,%LDAP_DOMAIN_DN%
+objectclass: groupOfNames
+cn: users
+member: uid=admin,ou=people,%LDAP_DOMAIN_DN%
+
+dn: cn=dev,ou=groups,%LDAP_DOMAIN_DN%
+objectclass: groupOfNames
+cn: dev
+member: uid=admin,ou=people,%LDAP_DOMAIN_DN%
+member: uid=dev.user1,ou=people,%LDAP_DOMAIN_DN%
+member: uid=dev.user2,ou=people,%LDAP_DOMAIN_DN%
+member: uid=dev.user3,ou=people,%LDAP_DOMAIN_DN%
+
+dn: cn=qa,ou=groups,%LDAP_DOMAIN_DN%
+objectclass: groupOfNames
+cn: qa
+member: uid=qa.user1,ou=people,%LDAP_DOMAIN_DN%
+member: uid=qa.user2,ou=people,%LDAP_DOMAIN_DN%
+member: uid=qa.user3,ou=people,%LDAP_DOMAIN_DN%
+
+dn: cn=robots,ou=groups,%LDAP_DOMAIN_DN%
+objectclass: groupOfNames
+cn: robots
+member: uid=jenkins-bot,ou=people,%LDAP_DOMAIN_DN%

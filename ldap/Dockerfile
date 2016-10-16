@@ -15,6 +15,8 @@ ENV ldap_admin_password admin
 ENV system_admin_password admin
 ENV jenkins_bot_password jenkins
 
+COPY files/* /root/
+
 ENTRYPOINT ["/entrypoint"]
 CMD ["slapd", "-u", "ldap", "-h", "ldap:/// ldapi:///", "-F", "/etc/openldap/slapd.d", "-d", "Stats"]
 
