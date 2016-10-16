@@ -1,5 +1,9 @@
 #!/bin/bash
 
+cd cibase
+docker build  -t cnbc/cibase .
+cd ..
+
 docker stop ldap
 docker rm ldap
 cd ldap

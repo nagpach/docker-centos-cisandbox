@@ -1,0 +1,36 @@
+version: '2'
+
+networks:
+  prodnetwork:
+    driver: bridge
+
+services:
+ ldap:
+  image: cnbc/ldap
+  networks:
+    - prodnetwork
+
+ ldapadmin:
+  image: cnbc/ldapadmin
+  ports:
+    - "98:80"
+  depends_on:
+    - ldap
+  networks:
+    - prodnetwork
+
+ jenkins:
+  image: cnbc/jenkins2
+  ports:
+    - "18080:8080"
+  networks:
+    - prodnetwork
+  volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
+    - /usr/local/bin/docker:/usr/bin/docker
+  depends_on:
+    - ldap
+  environment:
+    - NEXUS_PORT=8081
+    - SONAR_PORT=9000
+    - SONAR_DB_PORT=5432
