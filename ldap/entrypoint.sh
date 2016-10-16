@@ -42,16 +42,16 @@ _ADMIN_PASSWORD
 
 # Set up the domain
 #
-ldapmodify -Q -Y EXTERNAL -H ldapi:/// <<_LDAP_DOMAIN
+ldapmodify -Q -Y EXTERNAL -H ldapi:/// -d 2048 <<_LDAP_DOMAIN
 dn: olcDatabase={1}monitor,cn=config
 changetype: modify
 replace: olcAccess
 olcAccess: {0}to *
-  by dn.base="gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth" read
-  by dn.base="${ldap_admin_dn}" read
+  by dn.base="gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth" read 
+  by dn.base="${ldap_admin_dn}" read 
   by * none
 
-dn: olcDatabase={2}bdb,cn=config
+dn: olcDatabase={2}hdb,cn=config
 changetype: modify
 replace: olcSuffix
 olcSuffix: ${ldap_domain_dn}
@@ -64,14 +64,14 @@ olcRootPW: $(slappasswd -s "$ldap_admin_password")
 -
 add: olcAccess
 olcAccess: {0}to attrs=userPassword,shadowLastChange
-  by dn="${ldap_admin_dn}" write
-  by anonymous auth
+  by dn="${ldap_admin_dn}" write 
+  by anonymous auth 
   by self write
   by * none
 olcAccess: {1}to dn.base=""
   by * read
 olcAccess: {2}to *
-  by dn="${ldap_admin_dn}" write
+  by dn="${ldap_admin_dn}" write 
   by * read
 -
 _LDAP_DOMAIN
