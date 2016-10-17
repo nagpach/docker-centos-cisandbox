@@ -1,4 +1,4 @@
-FROM cnbc/cibase
+FROM cnbc/cibase:centos6
 
 USER root
 # Update the system
@@ -19,7 +19,7 @@ RUN yum -y install \
     iproute \
     httpd-tools; \
     yum clean all
-ENV JAVA_HOME /usr/lib/jvm/jre
+ENV JAVA_HOME /usr/java/latest
 
 ##########################################################
 # Install Nexus

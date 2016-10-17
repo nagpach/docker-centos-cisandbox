@@ -1,4 +1,4 @@
-FROM cnbc/cibase
+FROM cnbc/cibase:centos6
 
 ENV SONARQUBE_HOME /opt/sonarqube
 

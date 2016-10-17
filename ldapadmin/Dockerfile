@@ -1,6 +1,4 @@
-# Web UI for LDAP server
-
-FROM cnbc/cibase
+FROM cnbc/cibase:centos6
 MAINTAINER Nag Pachava 
 
 EXPOSE 80

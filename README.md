@@ -16,4 +16,8 @@ docker exec -it jenkins /bin/bash
 
 
 docker run -itd --name ldapadmin --link ldap:ldap -p 98:80 cnbc/ldapadmin
+docker-compose -f docker-compose-jenkins.yml rm
+docker-compose -f docker-compose-jenkins.yml up
+docker-compose exec jenkins /bin/bash
+
 

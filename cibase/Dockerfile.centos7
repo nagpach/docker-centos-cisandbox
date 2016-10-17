@@ -1,4 +1,4 @@
-FROM centos:6
+FROM centos:7
 
 ENV JAVA_VERSION 8u102
 ENV BUILD_VERSION b14
@@ -19,7 +19,7 @@ RUN alternatives --install /usr/bin/java jar /usr/java/latest/bin/java 200000 &&
 
 
 ENV JAVA_HOME /usr/java/latest
-ENV PATH ${JAVA_HOME}/bin:/opt/bin:${PATH}
+ENV PATH /opt/bin:${JAVA_HOME}/bin:${PATH}
 
 COPY files/bin/do.sh /opt/bin/do
 RUN chmod 755 /opt/bin/do \

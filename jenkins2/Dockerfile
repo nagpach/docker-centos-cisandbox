@@ -1,4 +1,4 @@
-FROM centos:7
+FROM cnbc/cibase:centos7
 MAINTAINER Nag Pachava 
 
 # Yum workaround to stalled mirror
@@ -12,8 +12,6 @@ RUN yum -y --setopt=tsflags=nodocs install \
     sudo wget \
     zip \
     openssh-client \
-    unzip \
-    java-1.8.0-openjdk \
     git \
     && yum clean all
     
@@ -21,18 +19,16 @@ RUN yum -y --setopt=tsflags=nodocs install \
 ENV TINI_VERSION 0.9.0
 ENV TINI_SHA fa23d1e20732501c3bb8eeeca423c89ac80ed452
 
-# Use tini as subreaper in Docker container to adopt zombie processes 
-RUN curl -fsSL https://github.com/krallin/tini/releases/download/v${TINI_VERSION}/tini-static -o /bin/tini && chmod +x /bin/tini \
-  && echo "$TINI_SHA  /bin/tini" | sha1sum -c -
-
 # SET Jenkins Environment Variables
 ENV JENKINS_HOME /var/lib/jenkins
 ENV JENKINS_SLAVE_AGENT_PORT 50000
 ENV JENKINS_VERSION 2.25
-#ENV JENKINS_SHA 5b89b6967e7af8119c52c7e86223b47665417a22 
 ENV JENKINS_SHA 1c4a750b7d7102c5fc9b78550fd3dcc93d7374da
 ENV JENKINS_UC https://updates.jenkins-ci.org
 ENV COPY_REFERENCE_FILE_LOG $JENKINS_HOME/copy_reference_file.log
+# Use tini as subreaper in Docker container to adopt zombie processes 
+RUN curl -fsSL https://github.com/krallin/tini/releases/download/v${TINI_VERSION}/tini-static -o /bin/tini && chmod +x /bin/tini \
+  && echo "$TINI_SHA  /bin/tini" | sha1sum -c -
 
 # Jenkins is run with user `jenkins`, uid = 1000
 # If you bind mount a volume from the host or a data container,
@@ -102,6 +98,7 @@ ADD files/var/lib/jenkins /usr/share/jenkins/ref
 COPY jobs/1-github-seed-job.xml /usr/share/jenkins/ref/jobs/1-github-seed-job/config.xml
 COPY jobs/2-job-dsl-seed-job.xml /usr/share/jenkins/ref/jobs/2-job-dsl-seed-job/config.xml
 COPY jobs/3-conference-app-seed-job.xml /usr/share/jenkins/ref/jobs/3-conference-app-seed-job/config.xml
+COPY jobs/4-spring-petclinic-job.xml /usr/share/jenkins/ref/jobs/4-spring-petclinic-job/config.xml
 
 RUN mkdir -p /usr/share/jenkins/ref/.ssh
 ADD sshkeys/id_rsa /usr/share/jenkins/ref/.ssh
